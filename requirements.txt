@@ -1,0 +1,7 @@
+streamlit
+pandas
+supabase
+python-dotenv
+streamlit-option-menu
+streamlit-ace
+google-genai

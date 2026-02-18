@@ -44,71 +44,93 @@ if 'last_uploaded_file' not in st.session_state: st.session_state['last_uploaded
 if 'xp' not in st.session_state: st.session_state['xp'] = 0
 if 'completed_tasks' not in st.session_state: st.session_state['completed_tasks'] = 0
 
-# --- 2. CSS PRO (DARK & TECH) ---
+# --- 2. CSS BLINDATO (FORCE DARK EVERYWHERE) ---
 st.markdown("""
 <style>
-    /* Forziamo i colori scuri nel caso il config fallisca */
-    .stApp { background-color: #0E1117; color: #FAFAFA; }
+    /* Sfondo Globale */
+    .stApp { background-color: #0E1117 !important; color: #FAFAFA !important; }
     
-    h1, h2, h3 { color: #00D4FF !important; font-family: 'Segoe UI', sans-serif; }
+    /* Testi */
+    h1, h2, h3, h4, h5, h6, p, span, div { color: #FAFAFA !important; font-family: 'Segoe UI', sans-serif; }
+    h1, h2, h3 { color: #00D4FF !important; }
     
+    /* Input Fields Scuro */
+    .stTextInput > div > div > input {
+        color: #FAFAFA !important;
+        background-color: #1E1E1E !important;
+        border-color: #333 !important;
+    }
+    
+    /* Selectbox */
+    div[data-baseweb="select"] > div {
+        background-color: #1E1E1E !important;
+        color: #FAFAFA !important;
+        border-color: #333 !important;
+    }
+    
+    /* File Uploader Scuro */
+    [data-testid="stFileUploader"] {
+        background-color: #1E1E1E !important;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px dashed #444;
+    }
+    [data-testid="stFileUploader"] section { background-color: #1E1E1E !important; }
+    [data-testid="stFileUploader"] small { color: #AAA !important; }
+
     /* Bottoni */
     .stButton>button { 
-        border: 1px solid #00D4FF; 
-        color: #00D4FF; 
-        background: transparent; 
+        border: 1px solid #00D4FF !important; 
+        color: #00D4FF !important; 
+        background: transparent !important; 
         border-radius: 5px; 
         width: 100%; 
     }
     .stButton>button:hover { 
-        background: #00D4FF; 
-        color: black; 
-        border: 1px solid #00D4FF;
+        background: #00D4FF !important; 
+        color: black !important; 
     }
     
-    /* Card Home Originali */
+    /* Card Home */
     .path-card { 
         padding: 20px; 
         border: 1px solid #333; 
         border-radius: 10px; 
-        background: #1E1E1E; 
+        background: #1E1E1E !important; 
         text-align: center; 
         height: 100%; 
         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
-    .path-card h3 { font-size: 1.5rem; margin-bottom: 10px; color: #00D4FF !important; }
-    .path-card p { color: #aaa; font-size: 0.95rem; }
+    .path-card p { color: #ccc !important; }
     
     /* Footer */
     .footer { 
         position: fixed; left: 0; bottom: 0; width: 100%; 
-        background: #0E1117; color: #666; 
+        background: #0E1117 !important; color: #666 !important; 
         text-align: center; padding: 10px; font-size: 0.8rem; z-index: 999; 
         border-top: 1px solid #333;
     }
     
-    /* Stat Box Profilo */
+    /* Stat Box */
     .stat-box { 
-        background-color: #1E1E1E; 
+        background-color: #1E1E1E !important; 
         padding: 15px; border-radius: 10px; 
         text-align: center; border: 1px solid #333; 
     }
-    .stat-number { font-size: 2rem; font-weight: bold; color: #00D4FF; }
-    .stat-label { font-size: 0.9rem; color: #AAA; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: #00D4FF !important; }
+    .stat-label { font-size: 0.9rem; color: #AAA !important; }
     
-    /* Social Buttons - RIPRISTINATI */
+    /* Social Buttons */
     .social-div { text-align: center; margin-top: 20px; }
     .social-div a { 
         text-decoration: none; 
         padding: 10px 20px; 
         border-radius: 5px; 
-        color: white; 
+        color: white !important; 
         margin: 0 10px; 
         font-size: 0.9rem; 
         font-weight: bold;
-        transition: opacity 0.3s;
     }
-    .social-div a:hover { opacity: 0.8; }
     .linkedin { background-color: #0077b5; border: 1px solid #0077b5; }
     .whatsapp { background-color: #25D366; border: 1px solid #25D366; }
 </style>
@@ -151,12 +173,11 @@ def update_xp():
 
 def share_buttons():
     url = "https://datagym.streamlit.app"
-    text = "Sto imparando Data Management su DataGym! 🚀"
     st.markdown(f"""
     <div class="social-div">
         <p style="color:#888; margin-bottom:15px;">📢 <b>Invita amici o condividi i tuoi risultati:</b></p>
         <a href="https://www.linkedin.com/sharing/share-offsite/?url={url}" target="_blank" class="linkedin">Condividi su LinkedIn</a>
-        <a href="https://wa.me/?text={text} {url}" target="_blank" class="whatsapp">Invia su WhatsApp</a>
+        <a href="https://wa.me/?text=Sto imparando Data Management su DataGym! 🚀 {url}" target="_blank" class="whatsapp">Invia su WhatsApp</a>
     </div>
     """, unsafe_allow_html=True)
 
@@ -223,7 +244,7 @@ if st.session_state['page'] == 'Auth':
                 if u: st.success("Creato! Accedi."); st.balloons()
                 else: st.error(err)
 
-# HOME (RESTAURATA COMPLETAMENTE)
+# HOME
 elif st.session_state['page'] == 'Home':
     st.title("DataGym_")
     st.markdown("### > The Interactive Learning Environment")
@@ -264,7 +285,6 @@ elif st.session_state['page'] == 'Home':
         if st.button("Avvia Python Lab"): st.session_state['track']='PYTHON'; st.session_state['page']='DevLab'; st.rerun()
 
     st.write("---")
-    # Tasti Social Ripristinati
     share_buttons()
 
 # DEVLAB
@@ -338,14 +358,14 @@ elif st.session_state['page'] == 'DevLab':
                     res, err = run_query_on_csv(code, st.session_state['custom_df'], st.session_state['custom_table_name'])
                     if err: st.error(f"Errore SQL: {err}")
                     else: 
-                        st.snow(); update_xp() # EFFETTO SNOW/CORIANDOLI
+                        st.balloons(); update_xp() # PALLONCINI PER FESTEGGIARE
                         st.success("✅ Query OK"); st.dataframe(res, use_container_width=True)
                 else: st.warning("Carica un file!")
             else:
                 out, err = execute_python_code(code)
                 if err: st.error(err)
                 else: 
-                    st.snow(); update_xp() # EFFETTO SNOW/CORIANDOLI
+                    st.balloons(); update_xp() # PALLONCINI PER FESTEGGIARE
                     st.code(out) if out else st.success("Eseguito")
 
 # PROFILO
@@ -366,7 +386,6 @@ elif st.session_state['page'] == 'Profilo':
             ))
             fig = px.line_polar(df_radar, r='r', theta='theta', line_close=True)
             fig.update_traces(fill='toself')
-            # Tema scuro per il grafico
             fig.update_layout(
                 polar=dict(radialaxis=dict(visible=True, range=[0, 20])),
                 showlegend=False,
@@ -386,7 +405,6 @@ elif st.session_state['page'] == 'Profilo':
             st.progress((st.session_state['xp'] % 500) / 500, text="Progresso Livello")
         
         st.write("---")
-        # Share buttons anche nel profilo
         share_buttons()
     else: st.warning("Accedi per vedere il tuo profilo.")
 

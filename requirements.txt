@@ -4,5 +4,4 @@ supabase
 python-dotenv
 streamlit-option-menu
 streamlit-ace
-google-generativeai
-watchdog
+plotly

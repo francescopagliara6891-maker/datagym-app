@@ -358,15 +358,19 @@ elif st.session_state['page'] == 'DevLab':
                     res, err = run_query_on_csv(code, st.session_state['custom_df'], st.session_state['custom_table_name'])
                     if err: st.error(f"Errore SQL: {err}")
                     else: 
-                        st.balloons(); update_xp() # PALLONCINI PER FESTEGGIARE
+                        st.balloons(); update_xp()
                         st.success("✅ Query OK"); st.dataframe(res, use_container_width=True)
                 else: st.warning("Carica un file!")
             else:
                 out, err = execute_python_code(code)
                 if err: st.error(err)
                 else: 
-                    st.balloons(); update_xp() # PALLONCINI PER FESTEGGIARE
-                    st.code(out) if out else st.success("Eseguito")
+                    st.balloons(); update_xp()
+                    # FIX DEL DELTAGENERATOR: Niente istruzioni inline!
+                    if out:
+                        st.code(out)
+                    else:
+                        st.success("Codice eseguito con successo.")
 
 # PROFILO
 elif st.session_state['page'] == 'Profilo':
